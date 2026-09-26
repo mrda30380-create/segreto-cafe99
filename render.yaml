@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: segreto-cafe
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: segreto-db
+          property: connectionString
+      - key: PAYMENT_CHECKOUT_URL
+        sync: false
+
+databases:
+  - name: segreto-db
+    plan: free

@@ -245,6 +245,9 @@ app.get('/api/admin/bookings', requireAdmin, async (req, res, next) => {
 });
 
 app.use(express.static(require('path').join(__dirname, 'public'), { extensions:['html'], dotfiles:'deny' }));
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
 app.use((req,res) => res.status(404).json({error:'Not found'}));
 app.use((err, req, res, next) => {
   console.error(err);
